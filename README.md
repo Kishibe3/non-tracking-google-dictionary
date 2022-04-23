@@ -4,7 +4,7 @@ google embed google analytics in google dictionary, which is a tool I used a lot
 This is a web extension created for Chromium based browsers.
 
 # How to use
-First download the project zip.
+First download the project zip file.
 ![download zip file](https://i.imgur.com/h9kXP3g.png)
 
 Decompress the downloaded zip file.
