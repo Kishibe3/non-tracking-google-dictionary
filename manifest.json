@@ -1,0 +1,22 @@
+{
+    "name": "Google Translate Extension",
+    "version": "0",
+    "description": "translate English words",
+    "manifest_version": 3,
+    "icons": {
+        "100": "icon.png"
+    },
+    "permissions": [
+        "activeTab"
+    ],
+    
+    "content_scripts": [
+        {
+            "matches": ["https://*/*", "http://*/*"],
+            "js": ["he.js", "content.js"]
+        }
+    ],
+    "background": {
+        "service_worker": "background.js"
+    }
+}

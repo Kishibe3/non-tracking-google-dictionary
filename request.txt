@@ -1,0 +1,22 @@
+GET /translate_a/single?dj=1&dt=t&dt=sp&dt=ld&dt=bd&client=dict-chrome-ex&sl=auto&tl=zh-TW&q=alert HTTP/2
+Host: clients5.google.com
+
+
+POST /_/TranslateWebserverUi/data/batchexecute HTTP/2
+Host: translate.google.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 52
+
+f.req=[[["MkEWBc","[["land","auto","zh-TW"]]"]]]
+
+https://clients5.google.com/translate_a/single?dj=1&dt=t&dt=sp&dt=ld&dt=bd&client=dict-chrome-ex&sl=auto&tl=zh-TW&q=alert
+https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=auto&tl=zh-TW&q=alert
+
+fetch('https://translate.google.com.tw/_/TranslateWebserverUi/data/batchexecute', {
+  method: 'POST',
+  credentials: 'omit',
+  body: new URLSearchParams('f.req=[[["MkEWBc","[[\\"つくえ\\",\\"auto\\",\\"zh-TW\\",true],[null]]",null,"generic"]]]')
+})
+.then(e => e.text())
+.then(e => JSON.parse(JSON.parse(e.substring(6).replace(/\\"/g, '\\\"'))[0][2]))
+.then(e => console.log(e))
