@@ -9,7 +9,13 @@ First download the project zip file.
 
 Decompress the downloaded zip file.
 
-Then open the extension setting page of your browser. Click the "Load Unpacked" button. Choose the folder you just decompressed and install.
+Open the decompressed folder. Open "background.js" with you text editor.
+![open background.js](https://i.imgur.com/4VdcpQs.png)
+
+Edit the first line of "background.js" to change it to the language you want to translate to. Save it.
+![change language setting](https://i.imgur.com/zMTap8z.png)
+
+Open the extension setting page of your browser. Click the "Load Unpacked" button. Choose the folder you just decompressed and install.
 ![install extension](https://i.imgur.com/m7e5PGn.png)
 
 Then you just finish installing this extension!
