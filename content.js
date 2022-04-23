@@ -6,9 +6,12 @@ function process() {
     if (getSelection().isCollapsed === true)
         return;
     
-    chrome.runtime.sendMessage({'word': word}, function (resp) {
-        showBubble(resp);
-    });
+    try {
+        chrome.runtime.sendMessage({'word': word}, function (resp) {
+            showBubble(resp);
+        });
+    }
+    catch (e) {}
 }
 
 document.addEventListener('mousedown', () => {
