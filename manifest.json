@@ -1,7 +1,7 @@
 {
     "name": "Google Translate Extension",
     "version": "0",
-    "description": "translate English words",
+    "description": "translate Unfamiliar words",
     "manifest_version": 3,
     "icons": {
         "100": "icon.png"
