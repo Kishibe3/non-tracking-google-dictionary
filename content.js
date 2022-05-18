@@ -1,4 +1,3 @@
-let keydownTime = 0;  // prevent query twice when double click a word
 let word = '';  // selected word
 
 function process() {
@@ -8,7 +7,8 @@ function process() {
     
     try {
         chrome.runtime.sendMessage({'word': word}, function (resp) {
-            showBubble(resp);
+            if (document.getElementById('ntgd-bubble') === null)
+                showBubble(resp);
         });
     }
     catch (e) {}
@@ -17,13 +17,8 @@ function process() {
 document.addEventListener('mousedown', () => {
     let t = document.querySelector('#ntgd-bubble');
     t ? t.remove() : null;
-    keydownTime = Date.now();
 });
-document.addEventListener('mouseup', () => {
-    if (Date.now() - keydownTime < 135)
-        return;
-    process();
-});
+document.addEventListener('mouseup', process);
 document.addEventListener('dblclick', process);
 
 function showBubble(resp) {
