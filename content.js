@@ -5,13 +5,13 @@ function process() {
     if (getSelection().isCollapsed === true)
         return;
     
-    try {
-        chrome.runtime.sendMessage({'word': word}, function (resp) {
-            if (document.getElementById('ntgd-bubble') === null)
-                showBubble(resp);
-        });
-    }
-    catch (e) {}
+    chrome.runtime.sendMessage({
+        origin: 'ntgd-content.js',
+        word: word
+    }, function (resp) {
+        if (document.getElementById('ntgd-bubble') === null)
+            showBubble(resp);
+    });
 }
 
 document.addEventListener('mousedown', () => {

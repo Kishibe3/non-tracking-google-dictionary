@@ -7,9 +7,14 @@
         "100": "icon.png"
     },
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "contextMenus"
     ],
     
+    "action": {
+        "default_title": "Translate Words",
+        "default_popup": "popup.html"
+    },
     "content_scripts": [
         {
             "matches": ["https://*/*", "http://*/*"],
