@@ -1,17 +1,8 @@
 let word = '';
 
-document.getElementById('btn').addEventListener('click', function () {
-    word = document.getElementById('word').value.replace(/^\s+|\s+$/g, '');
-    if (word === '')
-        return;
-    
-    chrome.runtime.sendMessage({
-        origin: 'ntgd-popup.js',
-        word: word
-    }, function (resp) {
-        showResult(resp);
-    });
-});
+setTimeout(function () {
+    document.getElementById('word').focus();
+}, 300);
 
 function showResult(resp) {
     word = he.encode(word);
@@ -37,3 +28,22 @@ function showResult(resp) {
 
     document.body.append(bubbleMain);
 }
+
+function process() {
+    word = document.getElementById('word').value.replace(/^\s+|\s+$/g, '');
+    if (word === '')
+        return;
+    
+    chrome.runtime.sendMessage({
+        origin: 'ntgd-popup.js',
+        word: word
+    }, function (resp) {
+        showResult(resp);
+    });
+}
+
+document.getElementById('btn').addEventListener('click', process);
+document.body.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter')
+        process();
+});
