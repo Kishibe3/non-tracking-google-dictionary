@@ -17,7 +17,7 @@ function showResult(resp) {
     <div id="ntgd-bubble-meaning">` + 
         (resp.hasOwnProperty('dict') ? 
             `<ul>
-                ${resp.dict.map(e => `<li><b>${e.pos}</b><div>${e.terms.join(', ')}</div></li>`).join('')}
+                ${resp.dict.map(e => `<li><b>${e.pos}</b><div>${e.entry.map(f => f.word).join(', ')}</div></li>`).join('')}
             </ul>`
         : resp.hasOwnProperty('sentences') ?
             `${resp.sentences.map(e => e.trans).join(', ')}`
