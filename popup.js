@@ -33,7 +33,8 @@ function process() {
     word = document.getElementById('word').value.replace(/^\s+|\s+$/g, '');
     if (word === '')
         return;
-    
+
+    // send to background.js
     chrome.runtime.sendMessage({
         origin: 'ntgd-popup.js',
         word: word
@@ -42,6 +43,7 @@ function process() {
     });
 }
 
+document.getElementById('word').addEventListener('input', process);
 document.getElementById('btn').addEventListener('click', process);
 document.body.addEventListener('keydown', function (e) {
     if (e.key === 'Enter')

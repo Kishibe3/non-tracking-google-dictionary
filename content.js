@@ -2,9 +2,11 @@ let word = '';  // selected word
 
 function process() {
     word = getSelection().toString().replace(/^\s+|\s+$/g, '');
+    word = he.encode(word);
     if (getSelection().isCollapsed === true)
         return;
     
+    // send to background.js
     chrome.runtime.sendMessage({
         origin: 'ntgd-content.js',
         word: word
@@ -14,9 +16,11 @@ function process() {
     });
 }
 
-document.addEventListener('mousedown', () => {
+document.addEventListener('mousedown', e => {
     let t = document.querySelector('#ntgd-bubble');
-    t ? t.remove() : null;
+    if (t && !t.contains(e.target))
+        t.remove();
+    // TODO don't remove bubble when mouse is in it
 });
 document.addEventListener('mouseup', process);
 document.addEventListener('dblclick', process);
@@ -71,3 +75,10 @@ function showBubble(resp) {
             
     bubble.shadow.append(bubbleArrow);
 }
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.origin === 'ntgd-background.js' && request.word !== '' && request.translated_result !== '') {
+        word = request.word;
+        showBubble(request.translated_result);
+    }
+});
