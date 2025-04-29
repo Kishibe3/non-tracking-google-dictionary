@@ -8,20 +8,25 @@ async function process() {
     
     // retry if background.js is sleeping
     for (let i = 0, send = false; i <= 5 && !send; i++) {
-        send = await new Promise(resolve => {
-            chrome.runtime.sendMessage({
-                origin: 'ntgd-content.js',
-                word: word
-            }, function (resp) {
-                if (chrome.runtime.lastError)
-                    resolve(false);
-                else {
-                    if (document.getElementById('ntgd-bubble') === null)
-                        showBubble(resp);
-                    resolve(true);
-                }
-            });
-        });
+		send = await new Promise(resolve => {
+			try {
+				chrome.runtime.sendMessage({
+					origin: 'ntgd-content.js',
+					word: word
+				}, function (resp) {
+					if (chrome.runtime.lastError)
+						resolve(false);
+					else {
+						if (document.getElementById('ntgd-bubble') === null)
+							showBubble(resp);
+						resolve(true);
+					}
+				});
+			}
+			catch (e) {
+				resolve(false);
+			}
+		});
         if (send)
             break;
         await new Promise(e => setTimeout(e, 3000));
