@@ -1,26 +1,37 @@
 let word = '';  // selected word
 
-function process() {
+async function process() {
     word = getSelection().toString().replace(/^\s+|\s+$/g, '');
     word = he.encode(word);
     if (getSelection().isCollapsed === true)
         return;
     
-    // send to background.js
-    chrome.runtime.sendMessage({
-        origin: 'ntgd-content.js',
-        word: word
-    }, function (resp) {
-        if (document.getElementById('ntgd-bubble') === null)
-            showBubble(resp);
-    });
+    // retry if background.js is sleeping
+    for (let i = 0, send = false; i <= 5 && !send; i++) {
+        send = await new Promise(resolve => {
+            chrome.runtime.sendMessage({
+                origin: 'ntgd-content.js',
+                word: word
+            }, function (resp) {
+                if (chrome.runtime.lastError)
+                    resolve(false);
+                else {
+                    if (document.getElementById('ntgd-bubble') === null)
+                        showBubble(resp);
+                    resolve(true);
+                }
+            });
+        });
+        if (send)
+            break;
+        await new Promise(e => setTimeout(e, 3000));
+    }
 }
 
 document.addEventListener('mousedown', e => {
     let t = document.querySelector('#ntgd-bubble');
     if (t && !t.contains(e.target))
         t.remove();
-    // TODO don't remove bubble when mouse is in it
 });
 document.addEventListener('mouseup', process);
 document.addEventListener('dblclick', process);
