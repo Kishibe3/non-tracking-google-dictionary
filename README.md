@@ -2,7 +2,8 @@
 google embed google analytics in google dictionary, which is a tool I used a lot when encountering new words in a document. I don't like that, so I decide to recreate a google dictionary with its most useful function and without tracking.
 
 This is a web extension created for Chromium based browsers.
-For firefox version, please visit [here](https://github.com/Kishibe3/non-tracking-google-dictionary-firefox).
+
+For Firefox version, please visit [here](https://github.com/Kishibe3/non-tracking-google-dictionary-firefox).
 
 # How to use
 Double click or select a word, then a bubble with translate result will show up. You can also click the extension icon to show popup page with a search bar. You can look up a word in the search bar.
