@@ -1,0 +1,27 @@
+{
+    "name": "Non-Tracking Google Dictionary",
+    "version": "0",
+    "description": "translate unfamiliar words",
+    "manifest_version": 3,
+    "icons": {
+        "100": "icon.png"
+    },
+    "permissions": [
+        "activeTab",
+        "contextMenus"
+    ],
+    
+    "action": {
+        "default_title": "Translate Words",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://*/*", "http://*/*"],
+            "js": ["content.js"]
+        }
+    ],
+    "background": {
+        "service_worker": "background.js"
+    }
+}
