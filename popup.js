@@ -5,7 +5,6 @@ setTimeout(function () {
 }, 300);
 
 function showResult(resp) {
-    word = he.encode(word);
     let bubbleMain = document.querySelector('#ntgd-bubble-main');
     if (bubbleMain)
         bubbleMain.remove();
@@ -13,19 +12,19 @@ function showResult(resp) {
     bubbleMain = document.createElement('div');
     bubbleMain.id = 'ntgd-bubble-main';
     bubbleMain.innerHTML = 
-    `<a id="ntgd-bubble-query" target="_blank" href="https://translate.google.com?sl=auto&tl=zh-TW&q=${word}">${word}</a>
-    <div id="ntgd-bubble-meaning">` + 
-        (resp.hasOwnProperty('dict') ? 
-            `<ul>
-                ${resp.dict.map(e => `<li><b>${e.pos}</b><div>${e.entry.map(f => f.word).join(', ')}</div></li>`).join('')}
-            </ul>`
-        : resp.hasOwnProperty('sentences') ?
-            `${resp.sentences.map(e => e.trans).join(', ')}`
-        :
-            `Not Found.`
-        ) + 
-    `</div>`;
-
+    `<a id="ntgd-bubble-query" target="_blank" href="https://translate.google.com?sl=auto&tl=zh-TW&q=${encodeURIComponent(word)}"></a>
+    <div id="ntgd-bubble-meaning">Not Found.</div>`;
+    
+    bubbleMain.querySelector('#ntgd-bubble-query').textContent = word;
+    if (resp.hasOwnProperty('dict')) {
+        bubbleMain.querySelector('#ntgd-bubble-meaning').innerHTML = 
+        `<ul>
+            ${resp.dict.map(e => `<li><b>${e.pos}</b><div>${e.terms.join(', ')}</div></li>`).join('')}
+        </ul>`;
+    }
+    else if (resp.hasOwnProperty('sentences'))
+        bubbleMain.querySelector('#ntgd-bubble-meaning').textContent = `${resp.sentences.map(e => e.trans).join(', ')}`;
+    
     document.body.append(bubbleMain);
 }
 
