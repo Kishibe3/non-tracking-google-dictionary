@@ -42,7 +42,13 @@ function process() {
     });
 }
 
-document.getElementById('word').addEventListener('input', process);
+let timer;
+function debounce() {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => process(), 1000);
+}
+document.getElementById('word').addEventListener('input', debounce);
+
 document.getElementById('btn').addEventListener('click', process);
 document.body.addEventListener('keydown', function (e) {
     if (e.key === 'Enter')
